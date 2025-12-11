@@ -74,9 +74,12 @@ class ComposerStaticInitcc8d2d5f8fe6c82f32f30454964d56fb
     );
 
     public static $classMap = array (
+        'AbstractController' => __DIR__ . '/../..' . '/controllers/AbstractController.php',
+        'AbstractManager' => __DIR__ . '/../..' . '/managers/AbstractManager.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Router' => __DIR__ . '/../..' . '/services/Router.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',

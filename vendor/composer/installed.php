@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'user/nom-du-projet',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'c233c585e5cebd807d819ced306060586e6228ff',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -74,9 +74,9 @@
             'dev_requirement' => false,
         ),
         'user/nom-du-projet' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'c233c585e5cebd807d819ced306060586e6228ff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
