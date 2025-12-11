@@ -18,4 +18,10 @@ abstract class AbstractController{
     {
         echo $this->twig->render($template, $data);
     }
+    
+    protected function redirect(string $url) : void
+    {
+        header('Location: '.$url);
+        exit;
+    }
 }
