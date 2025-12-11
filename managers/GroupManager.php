@@ -49,4 +49,31 @@ class GroupManager extends AbstractManager{
 
         return $arrayGroups;
     }
+
+    public function create(array $group) : void {
+        $query = $this->db->prepare("INSERT INTO groups (name, owner_id) VALUES (:name, :ownerId)");
+        $parameters = [
+            "name" => $group["name"],
+            "ownerId" => $group["ownerId"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function update(array $group) : void {
+        $query = $this->db->prepare("UPDATE groups SET name = :name, ownerId = :ownerId WHERE id = :id");
+        $parameters = [
+            "id" => $group["id"],
+            "name" => $group["name"],
+            "ownerId" => $group["ownerId"],
+        ];
+        $query->execute($parameters);
+    }
+
+    public function delete(int $id) : void {
+        $query = $this->db->prepare("DELETE FROM groups WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+        ];
+        $query->execute($parameters);
+    }
 }

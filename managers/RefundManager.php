@@ -42,4 +42,33 @@ class RefundManager extends AbstractManager{
 
         return $arrayRefunds;
     }
+
+    public function create(array $refund) : void {
+        $query = $this->db->prepare("INSERT INTO refund (amount, owner_id, group_id) VALUES (:amount, :owner_id, :group_id)");
+        $parameters = [
+            "amount" => $refund["amount"],
+            "owner_id" => $refund["owner_id"],
+            "group_id" => $refund["group_id"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function update(array $refund) : void {
+        $query = $this->db->prepare("UPDATE refunds SET amount = :amount, owner_id = :owner_id, group_id = :group_id WHERE id = :id");
+        $parameters = [
+            "id" => $refund["id"],
+            "amount" => $refund["amount"],
+            "owner_id" => $refund["owner_id"],
+            "group_id" => $refund["group_id"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function delete(int $id) : void {
+        $query = $this->db->prepare("DELETE FROM refunds WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+        ];
+        $query->execute($parameters);
+    }
 }

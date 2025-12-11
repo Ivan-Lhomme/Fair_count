@@ -42,4 +42,37 @@ class ExpenseManager extends AbstractManager{
 
         return $arrayExpense;
     }
+
+    public function create(array $expense) : void {
+        $query = $this->db->prepare("INSERT INTO expenses (reason, amount, owner_id, category_id, group_id) VALUES (:reason, :amount, :owner_id, :category_id, :group_id)");
+        $parameters = [
+            "reason" => $expense["reason"],
+            "amount" => $expense["amount"],
+            "owner_id" => $expense["owner_id"],
+            "category_id" => $expense["category_id"],
+            "group_id" => $expense["group_id"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function update(array $expense) : void {
+        $query = $this->db->prepare("UPDATE expenses SET reason = :reason, amount = :amount, owner_id = :owner_id, category_id = :category_id, group_id = :group_id WHERE id = :id");
+        $parameters = [
+            "id" => $expense["id"],
+            "reason" => $expense["reason"],
+            "amount" => $expense["amount"],
+            "owner_id" => $expense["owner_id"],
+            "category_id" => $expense["category_id"],
+            "group_id" => $expense["group_id"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function delete(int $id) : void {
+        $query = $this->db->prepare("DELETE FROM expenses WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+        ];
+        $query->execute($parameters);
+    }
 }

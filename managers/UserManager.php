@@ -58,4 +58,33 @@ class UserManager extends AbstractManager{
 
         return $arrayUsers;
     }
+
+    public function create(array $user) : void {
+        $query = $this->db->prepare("INSERT INTO users (nickname, email, password) VALUES (:nickname, :email, :password)");
+        $parameters = [
+            "nickName" => $user["nickname"],
+            "email" => $user["email"],
+            "password" => $user["password"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function update(array $user) : void {
+        $query = $this->db->prepare("UPDATE users SET nickname = :nickname, email = :email, password = :password WHERE id = :id");
+        $parameters = [
+            "id" => $user["id"],
+            "nickName" => $user["nickname"],
+            "email" => $user["email"],
+            "password" => $user["password"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function delete(int $id) : void {
+        $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+        ];
+        $query->execute($parameters);
+    }
 }
