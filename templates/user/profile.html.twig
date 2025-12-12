@@ -1,0 +1,50 @@
+{% extends "layout.html.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="assets/css/profile.css">
+{% endblock %}
+
+{% block title %}
+    {{ nickname }}
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav.html.twig" %}
+</header>
+
+<main>
+    <h1>Bienvenue sur ton profile <span class="uppercase">{{ nickname }}</span></h1>
+
+    <section id="user-money">
+        <h2>Ton argent : {{ money }} €</h2>
+        <button onclick="window.location.href = '?route=add-money'">+</button>
+    </section>
+
+    <section id="groups">
+        <h2>Tes groupes</h2>
+
+        {% for group in groups %}
+            <div>
+                <p class="group-name uppercase">{{ group["name"] }}</p>
+                <p class="group-amount">{{ group["amount"] }} €</p>
+                <p class="last-expenses">Dernière dépense</p>
+
+                {% for expense in group["expenses"] %}
+                    <div>
+                        <p class="expense">{{ expense["ownerName"] }}</p>
+                        <p class="expense">{{ expense["reason"] }}</p>
+                        <p class="expense">{{ expense["amount"] }} €</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button onclick="window.location.href = '?route=groups'">Voir plus</button>
+    </section>
+</main>
+
+<footer>
+    <button onclick="window.location.href = '?route=logout'">Déconnexion</button>
+</footer>
+{% endblock %}
