@@ -1,6 +1,6 @@
 <?php
 class User{
-    public function __construct(private string $nickName, private string $email, private string $password, private ?int $id = null) {}
+    public function __construct(private string $nickName, private string $email, private string $password, private float $money = 0, private ?int $id = null) {}
 
     public function getNickName() {
         return $this->nickName;
@@ -21,6 +21,13 @@ class User{
     }
     public function setPassword(string $password) {
         $this->password = $password;
+    }
+
+    public function getMoney() {
+        return $this->money;
+    }
+    public function setMoney(float $money) {
+        $this->money = $money;
     }
 
     public function getId() {
