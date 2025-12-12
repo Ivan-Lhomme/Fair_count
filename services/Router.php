@@ -10,6 +10,8 @@ class Router{
                 $ac->login();
             } else if ($get["route"] === "register") {
                 $ac->register();
+            } else if ($get["route"] === "logout") {
+                $ac->logout();
             } else if ($get["route"] === "profile") {
                 $uc->profile();
             } else {
