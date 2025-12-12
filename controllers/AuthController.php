@@ -37,7 +37,7 @@ class AuthController extends AbstractController{
                 $user = $um->findByEmail($_POST["email"]);
 
                 if ($user) {
-                    if ($_POST["password"] === $user->getPassword()) {
+                    if (password_verify($_POST["password"], $user->getPassword())) {
                         $_SESSION["id"] = $user->getId();
 
                         $this->redirect("?route=profile");
