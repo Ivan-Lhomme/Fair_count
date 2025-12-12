@@ -1,0 +1,49 @@
+/* ------------------------ global ------------------------ */
+html{
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+body{
+    margin: 0;
+}
+
+/* ------------------------ nav ------------------------ */
+nav{
+    background-color: black;
+    display: flex;
+    column-gap: 45vw;
+    padding: 1.5%;
+}
+nav > div{
+    display: flex;
+    justify-content: space-around;
+    margin: auto 0;
+    column-gap: 2vw;
+}
+#nav-categories{
+    width: 30%;
+    margin-left: 4%;
+}
+#nav-auth > button{
+    color: white;
+    background: none;
+    cursor: pointer;
+}
+#nav-login{
+    border: none;
+}
+#nav-register{
+    border: 1px solid white;
+    border-radius: 0.5vw;
+    padding: 4% 6%;
+}
+nav > div > a{
+    color: white;
+    text-decoration: none;
+    height: fit-content;
+    margin: auto 0;
+}
+#nav-home{
+    font-size: x-large;
+    padding-right: 10%;
+}
