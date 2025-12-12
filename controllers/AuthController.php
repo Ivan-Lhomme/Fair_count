@@ -8,7 +8,7 @@ class AuthController extends AbstractController{
                 $um = new UserManager;
 
                 if ($um->findByEmail($_POST["email"])) {
-                    $this->render("auth/register", ["errorMessage" => "Email already use"]);
+                    $this->render("auth/register.html.twig", ["errorMessage" => "Email already use"]);
                 } else {
                     if ($_POST["passowrd"] === $_POST["confirmPassword"]) {
                         $um->create([
@@ -19,11 +19,11 @@ class AuthController extends AbstractController{
 
                         $this->redirect("?route=login");
                     } else {
-                        $this->render("auth/register", ["errorMessage" => "Confirmation password not egale to password", "email" => $_POST["email"]]);
+                        $this->render("auth/register.html.twig", ["errorMessage" => "Confirmation password not egale to password", "email" => $_POST["email"]]);
                     }
                 }
             } else {
-                $this->render("auth/register", []);
+                $this->render("auth/register.html.twig", []);
             }
         }
     }
@@ -45,10 +45,10 @@ class AuthController extends AbstractController{
                         $this->render("auth/login", ["errorMessage" => "Wrong password", "email" => $_POST["email"]]);
                     }
                 } else {
-                    $this->render("auth/login", ["errorMessage" => "Wrong email"]);
+                    $this->render("auth/login.html.twig", ["errorMessage" => "Wrong email"]);
                 }
             } else {
-                $this->redirect("auth/login");
+                $this->redirect("auth/login.html.twig");
             }
         }
     }
