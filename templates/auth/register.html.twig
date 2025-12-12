@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Connexion
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet", href="assets/css/register.css">
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav.html.twig" %}
+</header>
+
+<main>
+    <section>
+        <h1>Inscription a Fair Count</h1>
+
+        <form method="post" action="?route=register">
+            <div>
+                <label for="nickname">Prénom</label>
+                <input name="nickname" type="text" required></input>
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input name="email" type="email" required></input>
+            </div>
+            
+            <div>
+                <label for="password">Mot de passe</label>
+                <input name="password" type="password" required></input>
+            </div>
+
+            <div>
+                <label for="confirmPassword">Confimation du mot de passe</label>
+                <input name="confirmPassword" type="password" required></input>
+            </div>
+
+            <button type="submit">Iscription</button>
+        </form>
+
+        <p>Tu es nouveau ? <a href="?route=login">Se connecter</a></p>
+    </section>
+</main>
+{% endblock %}

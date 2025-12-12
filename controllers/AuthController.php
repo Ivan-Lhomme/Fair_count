@@ -10,7 +10,7 @@ class AuthController extends AbstractController{
                 if ($um->findByEmail($_POST["email"])) {
                     $this->render("auth/register.html.twig", ["errorMessage" => "Email already use"]);
                 } else {
-                    if ($_POST["passowrd"] === $_POST["confirmPassword"]) {
+                    if ($_POST["password"] === $_POST["confirmPassword"]) {
                         $um->create([
                             "nickname" => $_POST["nickname"],
                             "email" => $_POST["email"],
@@ -34,21 +34,21 @@ class AuthController extends AbstractController{
         } else {
             if (isset($_POST["email"]) && isset($_POST["password"])) {
                 $um = new UserManager;
-                $user = $um->findByEmail("email");
+                $user = $um->findByEmail($_POST["email"]);
 
                 if ($user) {
                     if (password_verify($_POST["password"], $user->getPassword())) {
                         $_SESSION["id"] = $user->getId();
 
-                        $this->redirect("?route=profil");
+                        $this->redirect("?route=profile");
                     } else {
-                        $this->render("auth/login", ["errorMessage" => "Wrong password", "email" => $_POST["email"]]);
+                        $this->render("auth/login.html.twig", ["error" => "password", "value" => $_POST["email"]]);
                     }
                 } else {
-                    $this->render("auth/login.html.twig", ["errorMessage" => "Wrong email"]);
+                    $this->render("auth/login.html.twig", ["error" => "email"]);
                 }
             } else {
-                $this->redirect("auth/login.html.twig");
+                $this->render("auth/login.html.twig", []);
             }
         }
     }

@@ -1,0 +1,43 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Connexion
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet", href="assets/css/login.css">
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav.html.twig" %}
+</header>
+
+<main>
+    <section>
+        <h1>Connexion a Fair Count</h1>
+
+        <form method="post" action="?route=login">
+            <div>
+                <label for="email">Email</label>
+                <input {% if value is defined %} value="{{ value }}" {% endif %} name="email" type="email" required></input>
+                {% if error == "email" %}
+                    <p class="warning-message">Email invalide</p>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="password">Mot de passe</label>
+                <input name="password" type="password" required></input>
+                {% if error == "password" %}
+                    <p class="warning-message">mot de passe invalide</p>
+                {% endif %}
+            </div>
+
+            <button type="submit">Connexion</button>
+        </form>
+
+        <p>Tu es nouveau ? <a href="?route=register">Créer un compte</a></p>
+    </section>
+</main>
+{% endblock %}
