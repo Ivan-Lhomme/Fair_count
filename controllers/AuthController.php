@@ -1,9 +1,5 @@
 <?php
 class AuthController extends AbstractController{
-    public function home() {
-        $this->render("home", []);
-    }
-
     public function register() {
         if (isset($_SESSION["id"])) {
             $this->redirect("?route=profile");
