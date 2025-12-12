@@ -29,6 +29,27 @@ class ExpenseManager extends AbstractManager{
         return $arrayExpense;
     }
 
+    public function findByGroupIdLimited(int $groupId, int $limit) : array {
+        $query = $this->db->prepare("SELECT expenses.reason, expenses.amount, users.nickname as owner_name FROM expenses JOIN users ON expenses.owner_id = users.id WHERE expenses.group_id = :groupId ORDER BY expenses.id LIMIT $limit");
+        $parameters = [
+            "groupId" => $groupId
+        ];
+        $query->execute($parameters);
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $arrayExpense = [];
+
+        foreach ($results as $result) {
+            $arrayExpense[] = [
+                "reason" => $result["reason"],
+                "amount" => $result["amount"],
+                "ownerName" => $result["owner_name"]
+            ];
+        }
+
+        return $arrayExpense;
+    }
+
     public function findAll() : array {
         $query = $this->db->prepare("SELECT expenses.id, expenses.reason, expenses.amount, expenses.owner_id, expenses.group_id, categories.name as 'categorie_name' FROM expenses JOIN categories ON expenses.category_id = categories.id");
         $query->execute();
