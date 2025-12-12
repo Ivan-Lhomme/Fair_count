@@ -9,7 +9,7 @@ class UserManager extends AbstractManager{
 
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        return new User($result["nickname"], $result["email"], $result["password"], $result["id"]);
+        return new User($result["nickname"], $result["email"], $result["password"], $result["money"], $result["id"]);
     }
 
     public function findByEmail(string $email) : ? User {
@@ -22,7 +22,7 @@ class UserManager extends AbstractManager{
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            return new User($result["nickname"], $result["email"], $result["password"], $result["id"]);
+            return new User($result["nickname"], $result["email"], $result["password"], $result["money"], $result["id"]);
         }
         
         return null;
@@ -39,7 +39,7 @@ class UserManager extends AbstractManager{
         $arrayUsers = [];
 
         foreach ($results as $result) {
-            $arrayUsers[] = new User($result["nickname"], $result["email"], $result["password"], $result["id"]);
+            $arrayUsers[] = new User($result["nickname"], $result["email"], $result["password"], $result["money"], $result["id"]);
         }
 
         return $arrayUsers;
@@ -53,7 +53,7 @@ class UserManager extends AbstractManager{
         $arrayUsers = [];
 
         foreach ($results as $result) {
-            $arrayUsers[] = new User($result["nickname"], $result["email"], $result["password"], $result["id"]);
+            $arrayUsers[] = new User($result["nickname"], $result["email"], $result["password"], $result["money"], $result["id"]);
         }
 
         return $arrayUsers;
@@ -76,6 +76,28 @@ class UserManager extends AbstractManager{
             "nickName" => $user["nickname"],
             "email" => $user["email"],
             "password" => $user["password"]
+        ];
+        $query->execute($parameters);
+    }
+
+    public function addMoney(int $id, float $money) : void {
+        $actualMoney = $this->findById($id)->getMoney();
+
+        $query = $this->db->prepare("UPDATE users SET money = :money WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+            "money" => $actualMoney + $money
+        ];
+        $query->execute($parameters);
+    }
+
+    public function subMoney(int $id, float $money) : void {
+        $actualMoney = $this->findById($id)->getMoney();
+
+        $query = $this->db->prepare("UPDATE users SET money = :money WHERE id = :id");
+        $parameters = [
+            "id" => $id,
+            "money" => $actualMoney - $money
         ];
         $query->execute($parameters);
     }
