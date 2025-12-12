@@ -1,0 +1,22 @@
+<?php
+class Router{
+    public function handleRequest(array $get) {
+        $bc = new BasicController;
+        $ac = new AuthController;
+        $uc = new UserController;
+
+        if (isset($get["route"])) {
+            if ($get["route"] === "login") {
+                $ac->login();
+            } else if ($get["route"] === "register") {
+                $ac->register();
+            } else if ($get["route"] === "profile") {
+                $uc->profile();
+            } else {
+                $bc->notFound();
+            }
+        } else {
+            $bc->home();
+        }
+    }
+}
