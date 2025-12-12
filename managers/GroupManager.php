@@ -32,6 +32,26 @@ class GroupManager extends AbstractManager{
         ];
     }
 
+    public function findByOwnerIdLimited(int $ownerId, ?int $limit = null) : array {
+        $query = $this->db->prepare("SELECT groups.* FROM groups JOIN users ON groups.owner_id = users.id where groups.owner_id = :ownerId LIMIT $limit");
+            $parameters = [
+                "ownerId" => $ownerId
+            ];
+        $query->execute($parameters);
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $arrayGroups = [];
+
+        foreach ($results as $result) {
+            $arrayGroups[] = [
+                "id" => $result["id"],
+                "name" => $result["name"]
+            ];
+        }
+
+        return $arrayGroups;
+    }
+
     public function findAll() : array {
         $query = $this->db->prepare("SELECT * FROM groups");
         $query->execute();
