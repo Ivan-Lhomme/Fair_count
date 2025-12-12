@@ -1,7 +1,13 @@
 <nav>
-    <a href=".">Accueil</a>
-    <a href="?route=profile">Profile</a>
-    <a href="?route=groupes">Groupes</a>
-    <a href="?route=expenses">Dépenses</a>
-    <a href="?route=login">login</a>
+    <div id="nav-categories">
+        <a href="." id="nav-home">Accueil</a>
+        <a href="?route=profile">Profile</a>
+        <a href="?route=groupes">Groupes</a>
+        <a href="?route=expenses">Dépenses</a>
+    </div>
+
+    <div id="nav-auth">
+        <button onclick="window.location.href = '?route=login'" id="nav-login">S'identifier</button>
+        <button onclick="window.location.href = '?route=register'" id="nav-register">S'inscrire</button>
+    </div>
 </nav>
