@@ -1,5 +1,5 @@
 <?php
-class AuthController{
+class AuthController extends AbstractController{
     public function home() {
         $this->render("home", []);
     }
