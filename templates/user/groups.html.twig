@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="assets/css/groups.css">
+{% endblock %}
+
+{% block title %}
+    {{ nickname }}
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav.html.twig" %}
+</header>
+
+<main>
+    <h1>Voici la liste des groupes dans lesqueles tu es</h1>
+
+    <section id="groupsOwned">
+        <h2>Tes groupes</h2>
+
+        {% for group in groupsOwned %}
+            <div>
+                <p class="group-name uppercase">{{ group["name"] }}</p>
+                <p class="group-amount">{{ group["amount"] }} €</p>
+                <p class="last-expenses">Dernière dépense</p>
+
+                {% for expense in group["expenses"] %}
+                    <div>
+                        <p class="expense">{{ expense["ownerName"] }}</p>
+                        <p class="expense">{{ expense["reason"] }}</p>
+                        <p class="expense">{{ expense["amount"] }} €</p>
+                    </div>
+                {% endfor %}
+
+                <button onclick="window.location.href = '?route=group&groupId={{ group['id'] }}'">Voir plus</button>
+            </div>
+        {% endfor %}
+    </section>
+
+    <section id="groups">
+        <h2>Les groupes aux quels tu appartient</h2>
+
+        {% for group in groups %}
+            <div>
+                <p class="group-name uppercase">{{ group["name"] }}</p>
+                <p>Créateur {{ group["owner"] }}</p>
+                <p class="group-amount">{{ group["amount"] }} €</p>
+                <p class="last-expenses">Dernière dépense</p>
+
+                {% for expense in group["expenses"] %}
+                    <div>
+                        <p class="expense">{{ expense["ownerName"] }}</p>
+                        <p class="expense">{{ expense["reason"] }}</p>
+                        <p class="expense">{{ expense["amount"] }} €</p>
+                    </div>
+                {% endfor %}
+
+                <button onclick="window.location.href = '?route=group&groupId={{ group['id'] }}'">Voir plus</button>
+            </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

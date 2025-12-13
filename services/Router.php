@@ -16,6 +16,8 @@ class Router{
                 $uc->profile();
             } else if ($get["route"] === "add-money") {
                 $uc->addMoney();
+            } else if ($get["route"] === "groups") {
+                $uc->groups();
             } else {
                 $bc->notFound();
             }
