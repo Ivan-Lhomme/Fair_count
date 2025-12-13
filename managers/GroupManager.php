@@ -95,6 +95,24 @@ class GroupManager extends AbstractManager{
         return $arrayGroups;
     }
 
+    public function inGroup(int $groupId, int $userId) : bool {
+        $query = $this->db->prepare("SELECT * FROM group_users WHERE group_id = :groupId");
+        $parameters = [
+            "groupId" => $groupId
+        ];
+        $query->execute($parameters);
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($results as $result) {
+            if ($userId === $result["user_id"]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function create(array $group) : void {
         $query = $this->db->prepare("INSERT INTO groups (name, owner_id) VALUES (:name, :ownerId)");
         $parameters = [
