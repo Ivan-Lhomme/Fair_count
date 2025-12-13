@@ -29,4 +29,13 @@ class Refund{
     public function setId(int $id) {
         $this->id = $id;
     }
+
+    public function toArray() : array {
+        return [
+            "id" => $this->id,
+            "amount" => $this->amount,
+            "ownerId" => $this->ownerId,
+            "groupId" => $this->groupId
+        ];
+    }
 }

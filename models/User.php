@@ -36,4 +36,14 @@ class User{
     public function setId(string $id) {
         $this->id = $id;
     }
+
+    public function toArray() : array {
+        return [
+            "id" => $this->id,
+            "nickName" => $this->nickName,
+            "email" => $this->email,
+            "password" => $this->password,
+            "money" => $this->money
+        ];
+    }
 }

@@ -36,4 +36,14 @@ class Expense{
     public function setId(string $id) {
         $this->id = $id;
     }
+
+    public function toArray() : array {
+        return [
+            "id" => $this->id,
+            "reason" => $this->reason,
+            "amount" => $this->amount,
+            "ownerId" => $this->ownerId,
+            "category" => $this->category
+        ];
+    }
 }
