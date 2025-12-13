@@ -62,11 +62,11 @@ class RefundManager extends AbstractManager{
     }
 
     public function create(array $refund) : void {
-        $query = $this->db->prepare("INSERT INTO refund (amount, owner_id, group_id) VALUES (:amount, :owner_id, :group_id)");
+        $query = $this->db->prepare("INSERT INTO refunds (amount, owner_id, group_id) VALUES (:amount, :owner_id, :group_id)");
         $parameters = [
             "amount" => $refund["amount"],
-            "owner_id" => $refund["owner_id"],
-            "group_id" => $refund["group_id"]
+            "owner_id" => $refund["ownerId"],
+            "group_id" => $refund["groupId"]
         ];
         $query->execute($parameters);
     }

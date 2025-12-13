@@ -31,6 +31,12 @@ class Router{
                 } else {
                     $bc->home();
                 }
+            } else if ($get["route"] === "add-refund") {
+                if (isset($get["groupId"])) {
+                    $gc->addRefund();
+                } else {
+                    $bc->home();
+                }
             } else {
                 $bc->notFound();
             }

@@ -80,8 +80,8 @@ class GroupController extends AbstractController{
 
             if ($gm->inGroup($_GET["groupId"], $_SESSION["id"])) {
                 if (isset($_POST["reason"]) && isset($_POST["categoryId"]) && isset($_POST["amount"])) {
-                    $em = new ExpenseManager;
-                    $em->create([
+                    $rm = new ExpenseManager;
+                    $rm->create([
                         "reason" => $_POST["reason"],
                         "categoryId" => $_POST["categoryId"],
                         "amount" => $_POST["amount"],
@@ -100,6 +100,35 @@ class GroupController extends AbstractController{
                     }
 
                     $this->render("group/addExpense.html.twig", ["categories" => $arrayCategories, "groupId" => $_GET["groupId"]]);
+                }
+            } else {
+                $this->redirect("?route=groups");
+            }
+        } else {
+            $this->redirect(".");
+        }
+    }
+
+    public function addRefund() {
+        if (isset($_SESSION["id"])) {
+            $gm = new GroupManager;
+
+            if ($gm->inGroup($_GET["groupId"], $_SESSION["id"])) {
+                if (isset($_POST["amount"])) {
+                    $rm = new RefundManager;
+                    $um = new UserManager;
+
+                    $rm->create([
+                        "amount" => $_POST["amount"],
+                        "ownerId" => $_SESSION["id"],
+                        "groupId" => $_GET["groupId"]
+                    ]);
+
+                    $um->subMoney($_SESSION["id"], $_POST["amount"]);
+
+                    $this->redirect("?route=group&groupId=".$_GET["groupId"]);
+                } else {
+                    $this->render("group/addRefund.html.twig", ["groupId" => $_GET["groupId"]]);
                 }
             } else {
                 $this->redirect("?route=groups");
