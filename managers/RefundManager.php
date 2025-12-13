@@ -12,6 +12,24 @@ class RefundManager extends AbstractManager{
         return new Refund($result["amount"], $result["owner_id"], $result["group_id"], $result["id"]);
     }
 
+    public function findByOwnerIdAndGroupId(int $ownerId, int $groupId) : array {
+        $query = $this->db->prepare("SELECT * FROM refunds WHERE owner_id = :ownerId AND group_id = :groupId");
+        $parameters = [
+            "ownerId" => $ownerId,
+            "groupId" => $groupId
+        ];
+        $query->execute($parameters);
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $arrayRefunds = [];
+
+        foreach ($results as $result) {
+            $arrayRefunds[] = new Refund($result["amount"], $result["owner_id"], $result["group_id"], $result["id"]);
+        }
+
+        return $arrayRefunds;
+    }
+
     public function findByGroupId(int $groupId) : array {
         $query = $this->db->prepare("SELECT * FROM refunds WHERE group_id = :groupId ORDER BY id DESC");
         $parameters = [
