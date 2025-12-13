@@ -13,7 +13,7 @@ class ExpenseManager extends AbstractManager{
     }
 
     public function findByGroupId(int $groupId) : array {
-        $query = $this->db->prepare("SELECT expenses.id, expenses.reason, expenses.amount, expenses.owner_id, expenses.group_id, categories.name as 'categorie_name' FROM expenses JOIN categories ON expenses.category_id = categories.id WHERE expenses.group_id = :groupId");
+        $query = $this->db->prepare("SELECT expenses.id, expenses.reason, expenses.amount, expenses.owner_id, expenses.group_id, categories.name as 'categorie_name' FROM expenses JOIN categories ON expenses.category_id = categories.id WHERE expenses.group_id = :groupId ORDER BY expenses.id DESC");
         $parameters = [
             "groupId" => $groupId
         ];
@@ -30,7 +30,7 @@ class ExpenseManager extends AbstractManager{
     }
 
     public function findByGroupIdLimited(int $groupId, int $limit) : array {
-        $query = $this->db->prepare("SELECT expenses.reason, expenses.amount, users.nickname as owner_name FROM expenses JOIN users ON expenses.owner_id = users.id WHERE expenses.group_id = :groupId ORDER BY expenses.id LIMIT $limit");
+        $query = $this->db->prepare("SELECT expenses.reason, expenses.amount, users.nickname as owner_name FROM expenses JOIN users ON expenses.owner_id = users.id WHERE expenses.group_id = :groupId ORDER BY expenses.id DESC LIMIT $limit");
         $parameters = [
             "groupId" => $groupId
         ];

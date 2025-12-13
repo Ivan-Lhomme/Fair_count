@@ -13,7 +13,7 @@ class RefundManager extends AbstractManager{
     }
 
     public function findByGroupId(int $groupId) : array {
-        $query = $this->db->prepare("SELECT * FROM refunds WHERE group_id = :groupId");
+        $query = $this->db->prepare("SELECT * FROM refunds WHERE group_id = :groupId ORDER BY id DESC");
         $parameters = [
             "groupId" => $groupId
         ];
