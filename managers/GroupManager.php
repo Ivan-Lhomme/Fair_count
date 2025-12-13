@@ -23,13 +23,17 @@ class GroupManager extends AbstractManager{
         ];
         $query->execute($parameters);
 
-        $result = $query->fetch(PDO::FETCH_ASSOC);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $arrayGroups = [];
 
-        return [
-            "id" => $result["id"],
-            "name" => $result["name"],
-            "ownerId" => $result["owner_id"]
-        ];
+        foreach ($results as $result) {
+            $arrayGroups[] = [
+                "id" => $result["id"],
+                "name" => $result["name"]
+            ];
+        }
+
+        return $arrayGroups;
     }
 
     public function findByOwnerIdLimited(int $ownerId, ?int $limit = null) : array {
