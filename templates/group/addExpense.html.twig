@@ -1,0 +1,44 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Ajout d'argent
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet", href="assets/css/addExpense.css">
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav-logout.html.twig" %}
+</header>
+
+<main>
+    <section>
+        <h1>Ajouter une dépense sur le groupe <span class="uppercase">{{ groupName }}</span></h1>
+
+        <form method="post" action="?route=add-expense&groupId={{ groupId }}">
+            <div>
+                <label for="reason">Raison</label>
+                <input name="reason" type="text" required></input>
+            </div>
+
+            <div>
+                <label for="categoryId">Catégorie</label>
+                <select name="categoryId" required>
+                    {% for category in categories %}
+                        <option value="{{ category["id"] }}">{{ category["name"] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="amount">Montant</label>
+                <input name="amount" step="0.01" min="0" type="number" placeholder="0.00" required></input>
+            </div>
+
+            <button type="submit">Ajouter</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

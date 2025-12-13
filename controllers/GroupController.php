@@ -79,19 +79,27 @@ class GroupController extends AbstractController{
             $gm = new GroupManager;
 
             if ($gm->inGroup($_GET["groupId"], $_SESSION["id"])) {
-                if (isset($_POST["reason"]) && isset($_POST["categoryId"]) && isset($_POST["amount"]) && isset($_POST["ownerId"])) {
+                if (isset($_POST["reason"]) && isset($_POST["categoryId"]) && isset($_POST["amount"])) {
                     $em = new ExpenseManager;
                     $em->create([
                         "reason" => $_POST["reason"],
                         "categoryId" => $_POST["categoryId"],
                         "amount" => $_POST["amount"],
-                        "ownerId" => $_POST["ownerId"],
-                        "groupId" => $_POST["groupId"]
+                        "ownerId" => $_SESSION["id"],
+                        "groupId" => $_GET["groupId"]
                     ]);
 
-                    $this->redirect("?route=group&groupId=".$_POST["groupId"]);
+                    $this->redirect("?route=group&groupId=".$_GET["groupId"]);
                 } else {
-                    $this->render("group/addExpense.html.twig", []);
+                    $cm = new CategoryManager;
+                    $categories = $cm->findAll();
+                    $arrayCategories = [];
+
+                    foreach ($categories as $category) {
+                        $arrayCategories[] = $category->toArray();
+                    }
+
+                    $this->render("group/addExpense.html.twig", ["categories" => $arrayCategories, "groupId" => $_GET["groupId"]]);
                 }
             } else {
                 $this->redirect("?route=groups");
