@@ -1,0 +1,102 @@
+{% extends "layout.html.twig" %}
+
+{% block style %}
+    <link rel="stylesheet" href="assets/css/group.css">
+{% endblock %}
+
+{% block title %}
+    {{ goupName }}
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav-logout.html.twig" %}
+</header>
+
+<main>
+    <h1 class="uppercase">{{ goupName }}</h1>
+    <h2>Propriétaire : <span class="uppercase">{{ ownerName }}</span><br>Montant : {{ montant }}</h2>
+
+    <section>
+
+<!---------------------- users ------------------------>
+        <div class="category-border" id="users">
+            <h3>Membres</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ member["nickName"] }}</td>
+                            <td>{{ member["amount"] }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button onclick="window.location.href = '?route=add-member&groupId={{ groupId }}''">Ajouter</button>
+        </div>
+
+<!---------------------- expenses ------------------------>
+        <div class="category-border" id="expenses">
+            <h3>Dépenses</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Propriétaire</th>
+                        <th>Raison</th>
+                        <th>Catégorie</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for expense in expenses %}
+                        <tr>
+                            <td>{{ expense["ownerName"] }}</td>
+                            <td>{{ expense["reason"] }}</td>
+                            <td>{{ expense["category"] }}</td>
+                            <td>-{{ expense["amount"] }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button onclick="window.location.href = '?route=add-expense&groupId={{ groupId }}'">Ajouter</button>
+        </div>
+
+<!---------------------- refunds ------------------------>
+        <div class="category-border" id="refunds">
+            <h3>Remboursements</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Propriétaire</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for refund in refunds %}
+                        <tr>
+                            <td>{{ refund["ownerName"] }}</td>
+                            <td>+{{ refund["amount"] }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <button onclick="window.location.href = '?route=add-refund&groupId={{ groupId }}''">Ajouter</button>
+        </div>
+    </section>
+</main>
+{% endblock %}

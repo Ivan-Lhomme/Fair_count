@@ -4,6 +4,7 @@ class Router{
         $bc = new BasicController;
         $ac = new AuthController;
         $uc = new UserController;
+        $gc = new GroupController;
 
         if (isset($get["route"])) {
             if ($get["route"] === "login") {
@@ -14,10 +15,22 @@ class Router{
                 $ac->logout();
             } else if ($get["route"] === "profile") {
                 $uc->profile();
-            } else if ($get["route"] === "add-money") {
-                $uc->addMoney();
             } else if ($get["route"] === "groups") {
                 $uc->groups();
+            } else if ($get["route"] === "group") {
+                if (isset($get["groupId"])) {
+                    $gc->group();
+                } else {
+                    $bc->home();
+                }
+            } else if ($get["route"] === "add-money") {
+                $uc->addMoney();
+            } else if ($get["route"] === "add-expense") {
+                if (isset($get["groupId"])) {
+                    $gc->addExpense();
+                } else {
+                    $bc->home();
+                }
             } else {
                 $bc->notFound();
             }
