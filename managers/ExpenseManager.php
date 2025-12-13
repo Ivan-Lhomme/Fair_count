@@ -69,9 +69,9 @@ class ExpenseManager extends AbstractManager{
         $parameters = [
             "reason" => $expense["reason"],
             "amount" => $expense["amount"],
-            "owner_id" => $expense["owner_id"],
-            "category_id" => $expense["category_id"],
-            "group_id" => $expense["group_id"]
+            "owner_id" => $expense["ownerId"],
+            "category_id" => $expense["categoryId"],
+            "group_id" => $expense["groupId"]
         ];
         $query->execute($parameters);
     }
