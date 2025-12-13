@@ -1,6 +1,6 @@
 <?php
 class Expense{
-    public function __construct(private string $reason, private int $amount, private int $ownerId, private string $category, private ?int $id = null) {}
+    public function __construct(private string $reason, private float $amount, private int $ownerId, private string $category, private ?int $id = null) {}
 
     public function getReason() {
         return $this->reason;
@@ -12,14 +12,14 @@ class Expense{
     public function getAmount() {
         return $this->amount;
     }
-    public function setAmount(string $amount) {
+    public function setAmount(float $amount) {
         $this->amount = $amount;
     }
 
     public function getOwnerId() {
         return $this->ownerId;
     }
-    public function setOwnerId(string $ownerId) {
+    public function setOwnerId(int $ownerId) {
         $this->ownerId = $ownerId;
     }
 
@@ -33,7 +33,7 @@ class Expense{
     public function getId() {
         return $this->id;
     }
-    public function setId(string $id) {
+    public function setId(int $id) {
         $this->id = $id;
     }
 

@@ -1,11 +1,11 @@
 <?php
 class Refund{
-    public function __construct(private int $amount, private int $ownerId, private int $groupId, private ?int $id = null) {}
+    public function __construct(private float $amount, private int $ownerId, private int $groupId, private ?int $id = null) {}
 
     public function getAmount() {
         return $this->amount;
     }
-    public function setAmount(int $amount) {
+    public function setAmount(float $amount) {
         $this->amount = $amount;
     }
 

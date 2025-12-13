@@ -33,7 +33,7 @@ class User{
     public function getId() {
         return $this->id;
     }
-    public function setId(string $id) {
+    public function setId(int $id) {
         $this->id = $id;
     }
 
