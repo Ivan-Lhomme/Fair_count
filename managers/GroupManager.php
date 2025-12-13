@@ -36,7 +36,7 @@ class GroupManager extends AbstractManager{
         return $arrayGroups;
     }
 
-    public function findByOwnerIdLimited(int $ownerId, ?int $limit = null) : array {
+    public function findByOwnerIdLimited(int $ownerId, ?int $limit = null) : ? array {
         $query = $this->db->prepare("SELECT groups.* FROM groups JOIN users ON groups.owner_id = users.id where groups.owner_id = :ownerId LIMIT $limit");
             $parameters = [
                 "ownerId" => $ownerId
@@ -50,6 +50,27 @@ class GroupManager extends AbstractManager{
             $arrayGroups[] = [
                 "id" => $result["id"],
                 "name" => $result["name"]
+            ];
+        }
+
+        return $arrayGroups;
+    }
+
+    public function findByContainUserId(int $id) : ? array {
+        $query = $this->db->prepare("SELECT groups.id, groups.name, users.nickname FROM group_users JOIN groups ON group_users.group_id = groups.id JOIN users ON groups.owner_id = users.id WHERE user_id = :id AND groups.owner_id != :id");
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $arrayGroups = [];
+
+        foreach ($results as $result) {
+            $arrayGroups[] = [
+                "id" => $result["id"],
+                "name" => $result["name"],
+                "owner" => $result["nickname"]
             ];
         }
 
