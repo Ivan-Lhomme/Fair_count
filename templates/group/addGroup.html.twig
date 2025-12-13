@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Ajout d'argent
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet", href="assets/css/addGroup.css">
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav-logout.html.twig" %}
+</header>
+
+<main>
+    <section>
+        <h1>Créer un groupe</h1>
+
+        <form method="post" action="?route=add-group">
+            <div>
+                <label for="name">Nom</label>
+                <input name="name" type="text" required></input>
+            </div>
+
+            <button type="submit">Ajouter</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

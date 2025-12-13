@@ -137,4 +137,22 @@ class GroupController extends AbstractController{
             $this->redirect(".");
         }
     }
+
+    public function addGroup() {
+        if (isset($_SESSION["id"])) {
+            if ($_POST["name"]) {
+                $gm = new GroupManager;
+                $gm->create(["name" => $_POST["name"], "ownerId" => $_SESSION["id"]]);
+
+                $gum = new GroupUserManager;
+                $gum->create($gm->findLast()["id"], $_SESSION["id"]);
+
+                $this->redirect("?route=groups");
+            } else {
+                $this->render("group/addGroup.html.twig", []);
+            }
+        } else {
+            $this->redirect(".");
+        }
+    }
 }

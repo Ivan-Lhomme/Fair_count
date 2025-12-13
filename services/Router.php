@@ -25,6 +25,8 @@ class Router{
                 }
             } else if ($get["route"] === "add-money") {
                 $uc->addMoney();
+            } else if ($get["route"] === "add-group") {
+                $gc->addGroup();
             } else if ($get["route"] === "add-expense") {
                 if (isset($get["groupId"])) {
                     $gc->addExpense();

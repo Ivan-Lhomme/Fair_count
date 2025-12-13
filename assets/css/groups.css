@@ -40,6 +40,18 @@ section > div{
 #groupsOwned > div{
     row-gap: 4%;
 }
+#groupsOwned > button{
+    color: white;
+    background-color: rgb(12, 155, 12);
+    border: none;
+    border-radius: 4px;
+    padding: 1% 2%;
+    margin: 5% auto;
+    cursor: pointer;
+    width: fit-content;
+    height: fit-content;
+    grid-area: auto / 1 / auto / 4;
+}
 #groups > div{
     row-gap: 2%;
 }

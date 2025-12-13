@@ -16,6 +16,19 @@ class GroupManager extends AbstractManager{
         ];
     }
 
+    public function findLast() : array {
+        $query = $this->db->prepare("SELECT * FROM groups GROUP BY id DESC");
+        $query->execute();
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        return [
+            "id" => $result["id"],
+            "name" => $result["name"],
+            "ownerId" => $result["owner_id"]
+        ];
+    }
+
     public function findByOwnerId(int $ownerId) : array {
         $query = $this->db->prepare("SELECT groups.* FROM groups JOIN users ON groups.owner_id = users.id where groups.owner_id = :ownerId");
         $parameters = [
