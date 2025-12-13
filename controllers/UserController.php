@@ -43,4 +43,19 @@ class UserController extends AbstractController{
             $this->redirect("?route=login");
         }
     }
+
+    public function addMoney() {
+        if (isset($_SESSION["id"])) {
+            if (isset($_POST["montant"])) {
+                $um = new UserManager;
+                $um->addMoney($_SESSION["id"], (float)$_POST["montant"]);
+
+                $this->redirect("?route=profile");
+            } else {
+                $this->render("user/addMoney.html.twig", []);
+            }
+        } else {
+            $this->redirect(".");
+        }
+    }
 }

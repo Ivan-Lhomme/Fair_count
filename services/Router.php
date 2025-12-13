@@ -14,6 +14,8 @@ class Router{
                 $ac->logout();
             } else if ($get["route"] === "profile") {
                 $uc->profile();
+            } else if ($get["route"] === "add-money") {
+                $uc->addMoney();
             } else {
                 $bc->notFound();
             }
