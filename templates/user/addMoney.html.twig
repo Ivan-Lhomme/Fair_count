@@ -20,7 +20,7 @@ Ajout d'argent
         <form method="post" action="?route=add-money">
             <div>
                 <label for="email">Montant</label>
-                <input name="montant" type="number" placeholder="0.00" required></input>
+                <input name="montant" type="number" step="0.01" min="0" placeholder="0.00" required></input>
             </div>
 
             <button type="submit">Ajouter</button>
