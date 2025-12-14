@@ -14,7 +14,7 @@ class AuthController extends AbstractController{
                     } else {
                         if ($_POST["password"] === $_POST["confirmPassword"]) {
                             $um->create([
-                                "nickname" => $_POST["nickname"],
+                                "nickname" => $_POST["nickName"],
                                 "email" => $_POST["email"],
                                 "password" => password_hash($_POST["password"], PASSWORD_BCRYPT)
                             ]);

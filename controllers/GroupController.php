@@ -20,7 +20,7 @@ class GroupController extends AbstractController{
 
                 $group = new Group($group_tmp["name"], $groupOwner->getNickName(), $arrayUsers, $arrayExpenses, $arrayRefunds, $group_tmp["id"]);
 
-                //$amount = 0;
+                $amount = 0;
 
                 foreach ($group->getExpenses() as $expense) {
                     $amount -= $expense->getAmount();
