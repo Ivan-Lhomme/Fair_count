@@ -19,13 +19,19 @@ Connexion
 
         <form method="post" action="?route=register">
             <div>
-                <label for="nickname">Prénom</label>
-                <input name="nickname" type="text" required></input>
+                <label for="nickName">Prénom</label>
+                <input name="nickName" type="text" {% if error == "email" or error == "confirmPassword" %} value="{{ nickName }}" {% endif %} required></input>
+                {% if error == "nickName" %}
+                    <p class="warning-message">Prénom déjà pris</p>
+                {% endif %}
             </div>
 
             <div>
                 <label for="email">Email</label>
-                <input name="email" type="email" required></input>
+                <input name="email" type="email" {% if error == "confirmPassword" %} value="{{ email }}" {% endif %} required></input>
+                {% if error == "email" %}
+                    <p class="warning-message">Email déjà pris</p>
+                {% endif %}
             </div>
             
             <div>
@@ -36,12 +42,15 @@ Connexion
             <div>
                 <label for="confirmPassword">Confimation du mot de passe</label>
                 <input name="confirmPassword" type="password" required></input>
+                {% if error == "confirmPassword" %}
+                    <p class="warning-message">Différent du mot de passe</p>
+                {% endif %}
             </div>
 
             <button type="submit">Iscription</button>
         </form>
 
-        <p>Tu es nouveau ? <a href="?route=login">Se connecter</a></p>
+        <p>On se connait ? <a href="?route=login">Se connecter</a></p>
     </section>
 </main>
 {% endblock %}

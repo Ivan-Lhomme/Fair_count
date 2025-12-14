@@ -4,25 +4,29 @@ class AuthController extends AbstractController{
         if (isset($_SESSION["id"])) {
             $this->redirect("?route=profile");
         } else {
-            if (isset($_POST["nickname"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirmPassword"])) {
+            if (isset($_POST["nickName"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirmPassword"])) {
                 $um = new UserManager;
-
-                if ($um->findByEmail($_POST["email"])) {
-                    $this->render("auth/register.html.twig", ["errorMessage" => "Email already use"]);
+                if ($um->findByNickName($_POST["nickName"])) {
+                    $this->render("auth/register.html.twig", ["error" => "nickName"]);
                 } else {
-                    if ($_POST["password"] === $_POST["confirmPassword"]) {
-                        $um->create([
-                            "nickname" => $_POST["nickname"],
-                            "email" => $_POST["email"],
-                            "password" => password_hash($_POST["password"], PASSWORD_BCRYPT)
-                        ]);
-
-                        $this->redirect("?route=login");
+                    if ($um->findByEmail($_POST["email"])) {
+                        $this->render("auth/register.html.twig", ["error" => "email", "nickName" => $_POST["nickName"]]);
                     } else {
-                        $this->render("auth/register.html.twig", ["errorMessage" => "Confirmation password not egale to password", "email" => $_POST["email"]]);
+                        if ($_POST["password"] === $_POST["confirmPassword"]) {
+                            $um->create([
+                                "nickname" => $_POST["nickname"],
+                                "email" => $_POST["email"],
+                                "password" => password_hash($_POST["password"], PASSWORD_BCRYPT)
+                            ]);
+
+                            $this->redirect("?route=login");
+                        } else {
+                            $this->render("auth/register.html.twig", ["error" => "confirmPassword", "nickName" => $_POST["nickName"], "email" => $_POST["email"]]);
+                        }
                     }
                 }
             } else {
+                echo "A";
                 $this->render("auth/register.html.twig", []);
             }
         }

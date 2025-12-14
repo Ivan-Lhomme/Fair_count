@@ -48,7 +48,11 @@ section > p > a{
     text-decoration: none;
     color: rgb(0, 60, 255);
 }
-
 p > a:hover{
     text-decoration: underline;
+}
+.warning-message{
+    margin: 0;
+    font-size: smaller;
+    color: red;
 }
