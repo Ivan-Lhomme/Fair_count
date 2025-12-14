@@ -26,7 +26,6 @@ class AuthController extends AbstractController{
                     }
                 }
             } else {
-                echo "A";
                 $this->render("auth/register.html.twig", []);
             }
         }
