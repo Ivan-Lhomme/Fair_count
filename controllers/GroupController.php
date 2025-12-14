@@ -20,7 +20,7 @@ class GroupController extends AbstractController{
 
                 $group = new Group($group_tmp["name"], $groupOwner->getNickName(), $arrayUsers, $arrayExpenses, $arrayRefunds, $group_tmp["id"]);
 
-                $amount = 0;
+                //$amount = 0;
 
                 foreach ($group->getExpenses() as $expense) {
                     $amount -= $expense->getAmount();
@@ -136,7 +136,25 @@ class GroupController extends AbstractController{
 
                     $this->redirect("?route=group&groupId=".$_GET["groupId"]);
                 } else {
-                    $this->render("group/addRefund.html.twig", ["groupId" => $_GET["groupId"]]);
+                    $em = new ExpenseManager;
+                    $rm = new RefundManager;
+                    $um = new UserManager;
+
+                    $groupName = $gm->findOne($_GET["groupId"])["name"];
+
+                    $amountDue = 0;
+
+                    foreach ($em->findByGroupId($_GET["groupId"]) as $expense) {
+                        $amountDue -= $expense->getAmount();
+                    }
+
+                    $amountDue = round($amountDue / count($um->findByGroupId($_GET["groupId"])), 2);
+
+                    foreach ($rm->findByGroupId($_GET["groupId"]) as $refund) {
+                        $amountDue += $refund->getAmount();
+                    }
+
+                    $this->render("group/addRefund.html.twig", ["groupId" => $_GET["groupId"], "groupName" => $groupName, "amountDue" => $amountDue * -1]);
                 }
             } else {
                 $this->redirect("?route=groups");
