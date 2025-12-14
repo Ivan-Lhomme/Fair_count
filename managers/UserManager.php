@@ -28,6 +28,22 @@ class UserManager extends AbstractManager{
         return null;
     }
 
+    public function findByNickName(string $nickName) : ? User {
+        $query = $this->db->prepare("SELECT * FROM users WHERE nickname = :nickName");
+        $parameters = [
+            "nickName" => $nickName
+        ];
+        $query->execute($parameters);
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return new User($result["nickname"], $result["email"], $result["password"], $result["money"], $result["id"]);
+        }
+        
+        return null;
+    }
+
     public function findByGroupId(int $groupId) : array {
         $query = $this->db->prepare("SELECT users.* FROM users JOIN group_users ON users.id = group_users.user_id JOIN groups ON group_users.group_id = groups.id WHERE groups.id = :groupId;");
         $parameters = [
