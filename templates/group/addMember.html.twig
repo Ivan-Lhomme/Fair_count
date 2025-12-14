@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+Ajout de membre
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet", href="assets/css/addMember.css">
+{% endblock %}
+
+{% block body %}
+<header>
+    {% include "partials/_nav-logout.html.twig" %}
+</header>
+
+<main>
+    <section>
+        <h1>Ajouter un membre sur le groupe <span class="uppercase">{{ groupName }}</span></h1>
+
+        <form method="post" action="?route=add-member&groupId={{ groupId }}">
+            <div>
+                <label for="receiverName">Prénom du membre</label>
+                <input name="receiverName" type="text" required></input>
+            </div>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

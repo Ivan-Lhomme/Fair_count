@@ -5,6 +5,7 @@ class Router{
         $ac = new AuthController;
         $uc = new UserController;
         $gc = new GroupController;
+        $jrc = new joinRequestController;
 
         if (isset($get["route"])) {
             if ($get["route"] === "login") {
@@ -38,6 +39,24 @@ class Router{
                     $gc->addRefund();
                 } else {
                     $bc->home();
+                }
+            } else if ($get["route"] === "add-member") {
+                if (isset($get["groupId"])) {
+                    $gc->addMember();
+                } else {
+                    $bc->home();
+                }
+            } else if ($get["route"] === "joinRequest-accept") {
+                if (isset($get["joinRequestId"])) {
+                    $jrc->accept();
+                } else {
+                    $uc->profile();
+                }
+            } else if ($get["route"] === "joinRequest-refuse") {
+                if (isset($get["joinRequestId"])) {
+                    $jrc->refuse();
+                } else {
+                    $uc->profile();
                 }
             } else {
                 $bc->notFound();

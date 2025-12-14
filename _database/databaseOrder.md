@@ -6,3 +6,4 @@
 4. group_users
 5. refunds
 6. expenses
+7. join_requests

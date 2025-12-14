@@ -9,6 +9,7 @@ class GroupController extends AbstractController{
                 $um = new UserManager;
                 $em = new ExpenseManager;
                 $rm = new RefundManager;
+                $jrm = new joinRequestManager;
 
                 $group_tmp = $gm->findOne($_GET["groupId"]);
                 $groupOwner = $um->findById($group_tmp["ownerId"]);
@@ -57,6 +58,12 @@ class GroupController extends AbstractController{
                     $refunds[] = $refund_tmp;
                 }
 
+                $arrayJoinRequests = $jrm->findByGroupId($_GET["groupId"]);
+                $joinRequests = [];
+                foreach ($arrayJoinRequests as $memberRequest) {
+                    $joinRequests[] = ["nickName" => $um->findById($memberRequest->getReceiverId())->getNickName(), "status" => $memberRequest->getStatus()];
+                }
+
                 $this->render("group/group.html.twig", [
                     "groupId" => $group->getId(),
                     "goupName" => $group->getName(),
@@ -64,7 +71,8 @@ class GroupController extends AbstractController{
                     "montant" => $amount,
                     "members" => $users,
                     "expenses" => $expenses,
-                    "refunds" => $refunds
+                    "refunds" => $refunds,
+                    "joinRequests" => $joinRequests
                 ]);
             } else {
                 $this->redirect("?route=groups");
@@ -150,6 +158,30 @@ class GroupController extends AbstractController{
                 $this->redirect("?route=groups");
             } else {
                 $this->render("group/addGroup.html.twig", []);
+            }
+        } else {
+            $this->redirect(".");
+        }
+    }
+
+    public function addMember() {
+        if (isset($_SESSION["id"])) {
+            if (isset($_POST["receiverName"])) {
+                $um = new UserManager;
+                $user = $um->findByNickName($_POST["receiverName"]);
+
+                if ($user) {
+                    $jrm = new joinRequestManager;
+                    $jrm->create(new joinRequest($_SESSION["id"], $user->getId(), $_GET["groupId"]));
+
+                    $this->redirect("?route=group&groupId=".$_GET["groupId"]);
+                } else {
+                    $this->render("group/addMember.html.twig", ["error" => "receiverName"]);
+                }
+            } else {
+                $gm = new GroupManager;
+
+                $this->render("group/addMember.html.twig", ["groupName" => $gm->findOne($_GET["groupId"])["name"], "groupId" => $_GET["groupId"]]);
             }
         } else {
             $this->redirect(".");

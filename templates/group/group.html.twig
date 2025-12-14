@@ -41,6 +41,26 @@
                 </tbody>
             </table>
 
+            <h4>Demande d'adhésion en attente</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prénom</th>
+                        <th>Etat</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for memberRequest in joinRequests %}
+                        <tr>
+                            <td>{{ memberRequest["nickName"] }}</td>
+                            <td>{{ memberRequest["status"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
             <button onclick="window.location.href = '?route=add-member&groupId={{ groupId }}'">Ajouter</button>
         </div>
 

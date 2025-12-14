@@ -42,5 +42,33 @@
 
         <button onclick="window.location.href = '?route=groups'">Voir plus</button>
     </section>
+
+    <section id="joinRequest">
+        <h2>Demande d'adhésion en attente</h2>
+
+        <table>
+                <thead>
+                    <tr>
+                        <th>Propriétaire</th>
+                        <th>Groupe</th>
+                        <th>Etat</th>
+                        <th>Accepter</th>
+                        <th>Refuser</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for memberRequest in joinRequests %}
+                        <tr>
+                            <td>{{ memberRequest["senderName"] }}</td>
+                            <td>{{ memberRequest["groupName"] }}</td>
+                            <td>{{ memberRequest["status"] }}</td>
+                            <td><button class="accept" onclick="window.location.href = '?route=joinRequest-accept&joinRequestId={{ memberRequest["id"] }}'">Accepter</button></td>
+                            <td><button class="refuse" onclick="window.location.href = '?route=joinRequest-refuse&joinRequestId={{ memberRequest["id"] }}'">Refuser</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </section>
 </main>
 {% endblock %}

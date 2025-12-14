@@ -6,6 +6,7 @@ class UserController extends AbstractController{
             $gm = new GroupManager;
             $em = new ExpenseManager;
             $rm = new RefundManager;
+            $jrm = new joinRequestManager;
 
             $user = $um->findById($_SESSION["id"]);
 
@@ -34,10 +35,21 @@ class UserController extends AbstractController{
                 ];
             }
 
+            $arrayJoinRequests = $jrm->findByReceiverId($_SESSION["id"]);
+            $joinRequests = [];
+
+            foreach ($arrayJoinRequests as $memberRequest) {
+                $senderName = $um->findById($memberRequest->getSenderId())->getNickName();
+                $groupName = $gm->findOne($memberRequest->getGroupId())["name"];
+
+                $joinRequests[] = ["senderName" => $senderName, "groupName" => $groupName, "status" => $memberRequest->getStatus(), "id" => $memberRequest->getId()];
+            }
+
             $this->render("user/profile.html.twig", [
                 "nickname" => $user->getNickName(),
                 "groups" => $groups,
-                "money" => $user->getMoney()
+                "money" => $user->getMoney(),
+                "joinRequests" => $joinRequests
             ]);
         } else {
             $this->redirect("?route=login");
